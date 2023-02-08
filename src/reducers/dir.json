@@ -105,6 +105,7 @@
                     }
                   },
                   "Adobe": {},
+                  "Atom": {},
                   "Attachments": {},
                   "Battle Royal": {},
                   "BioWare": {},
@@ -112,7 +113,7 @@
                   "Downloadable": {},
                   "Fax": {},
                   "FeedbackHub": {},
-                  "Freelancing": {},
+                  "Zorp": {},
                   "My Games": {},
                   "OneNote notebooks": {},
                   "OnScreen Control": {},
@@ -165,7 +166,7 @@
                   "icon": "vid"
                 },
                 "data": {
-                  "porn-collection": {}
+                  "butterfly-collection": {}
                 }
               },
               "Github": {

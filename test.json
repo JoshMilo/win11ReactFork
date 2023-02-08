@@ -1,0 +1,54 @@
+{
+  id: 1,
+  userName: 'Evia Atkins',
+  assignments: [
+    {
+      id: 'a1',
+      title:
+        "Examine the themes of race and prejudice in Toni Morrison's Beloved",
+      description: 'With the rapid pace of ',
+      createdDate: '2022-10-10',
+      dueDate: '2022-10-17',
+      turnedInDate: '2022-11-10',
+    },
+    {
+      id: 'a2',
+      title: 'Discuss the themes of alienation and identity in J.D. Salinger's The Catcher in the Rye',
+      description: 'The Future of Education: Adaptive Learning',
+      createdDate: '2023-1-20',
+      dueDate: '2023-5-17',
+    },
+  ],
+  submissions: [
+    {
+      id: 's1',
+      assignmentId: 1,
+      studentId: 1,
+      submissionDate: '2020-10-10',
+      grade: 100,
+      feedback: 'Great job!',
+      completed: true,
+      completedDate: '2020-10-10',
+    },
+  ],
+  files: [
+    {
+      id: 'f1',
+      title: 'Assignment 1',
+      description: 'The impact of Technology on Seniors',
+      createdDate: '2022-10-10',
+      dueDate: '2022-10-17',
+      alsoSeenIn: ['Word', 'OneNote', 'PowerPoint'],
+      lastAccessed: '2020-10-10',
+    },
+    {
+      id: 'f2',
+      title: 'Assignment 2',
+      description: 'The Future of Education: Adaptive Learning',
+      createdDate: '2023-1-20',
+      dueDate: '2023-5-17',
+      alsoSeenIn: ['Word', 'OneNote', 'PowerPoint'],
+      lastAccessed: '2020-10-10',
+    },
+  ],
+}

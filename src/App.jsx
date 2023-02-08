@@ -1,24 +1,17 @@
-import { useEffect } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { useDispatch, useSelector } from "react-redux";
-import "./i18nextConf";
-import "./index.css";
+import { useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useDispatch, useSelector } from 'react-redux';
+import './i18nextConf';
+import './index.css';
 
-import ActMenu from "./components/menu";
-import {
-  BandPane,
-  CalnWid,
-  DesktopApp,
-  SidePane,
-  StartMenu,
-  WidPane,
-} from "./components/start";
-import Taskbar from "./components/taskbar";
-import { Background, BootScreen, LockScreen } from "./containers/background";
+import ActMenu from './components/menu';
+import { BandPane, CalnWid, DesktopApp, SidePane, StartMenu, WidPane } from './components/start';
+import Taskbar from './components/taskbar';
+import { Background, BootScreen, LockScreen } from './containers/background';
 
-import { loadSettings } from "./actions";
-import * as Applications from "./containers/applications";
-import * as Drafts from "./containers/applications/draft";
+import { loadSettings } from './actions';
+import * as Applications from './containers/applications';
+import * as Drafts from './containers/applications/draft';
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -32,8 +25,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
         <div id="container">
           <h1>:(</h1>
           <h2>
-            Your PC ran into a problem and needs to restart. We're just
-            collecting some error info, and then we'll restart for you.
+            Your PC ran into a problem and needs to restart. We're just collecting some error info,
+            and then we'll restart for you.
           </h2>
           <h2>
             <span id="percentage">0</span>% complete
@@ -47,10 +40,10 @@ function ErrorFallback({ error, resetErrorBoundary }) {
             <div id="stopcode">
               <h4>
                 For more information about this issue and possible fixes, visit
-                <br />{" "}
+                <br />{' '}
                 <a href="https://github.com/blueedgetechno/win11React/issues">
                   https://github.com/blueedgetechno/win11React/issues
-                </a>{" "}
+                </a>{' '}
               </h4>
               <h5>
                 If you call a support person, give them this info:
@@ -74,22 +67,20 @@ function App() {
 
   const afterMath = (event) => {
     var ess = [
-      ["START", "STARTHID"],
-      ["BAND", "BANDHIDE"],
-      ["PANE", "PANEHIDE"],
-      ["WIDG", "WIDGHIDE"],
-      ["CALN", "CALNHIDE"],
-      ["MENU", "MENUHIDE"],
+      ['START', 'STARTHID'],
+      ['BAND', 'BANDHIDE'],
+      ['PANE', 'PANEHIDE'],
+      ['WIDG', 'WIDGHIDE'],
+      ['CALN', 'CALNHIDE'],
+      ['MENU', 'MENUHIDE'],
     ];
 
-    var actionType = "";
+    var actionType = '';
     try {
-      actionType = event.target.dataset.action || "";
+      actionType = event.target.dataset.action || '';
     } catch (err) {}
 
-    var actionType0 = getComputedStyle(event.target).getPropertyValue(
-      "--prefix"
-    );
+    var actionType0 = getComputedStyle(event.target).getPropertyValue('--prefix');
 
     ess.forEach((item, i) => {
       if (!actionType.startsWith(item[0]) && !actionType0.startsWith(item[0])) {
@@ -114,7 +105,7 @@ function App() {
       data.attr = e.target.attributes;
       data.dataset = e.target.dataset;
       dispatch({
-        type: "MENUSHOW",
+        type: 'MENUSHOW',
         payload: data,
       });
     }
@@ -123,7 +114,7 @@ function App() {
   window.onclick = afterMath;
 
   window.onload = (e) => {
-    dispatch({ type: "WALLBOOTED" });
+    dispatch({ type: 'WALLBOOTED' });
   };
 
   useEffect(() => {
@@ -131,7 +122,7 @@ function App() {
       loadSettings();
       window.onstart = setTimeout(() => {
         // console.log("prematurely loading ( ﾉ ﾟｰﾟ)ﾉ");
-        dispatch({ type: "WALLBOOTED" });
+        dispatch({ type: 'WALLBOOTED' });
       }, 5000);
     }
   });
@@ -150,7 +141,7 @@ function App() {
               return <WinApp key={idx} />;
             })}
             {Object.keys(apps)
-              .filter((x) => x != "hz")
+              .filter((x) => x != 'hz')
               .map((key) => apps[key])
               .map((app, i) => {
                 if (app.pwa) {

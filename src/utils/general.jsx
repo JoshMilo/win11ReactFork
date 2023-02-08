@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector, useDispatch } from "react-redux";
-import "./general.scss";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector, useDispatch } from 'react-redux';
+import './general.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import * as FaIcons from "@fortawesome/free-solid-svg-icons";
-import * as FaRegIcons from "@fortawesome/free-regular-svg-icons";
-import * as AllIcons from "./icons";
+import * as FaIcons from '@fortawesome/free-solid-svg-icons';
+import * as FaRegIcons from '@fortawesome/free-regular-svg-icons';
+import * as AllIcons from './icons';
 
 String.prototype.strip = function (c) {
   var i = 0,
@@ -25,15 +25,15 @@ String.prototype.count = function (c) {
 
 export const Icon = (props) => {
   const dispatch = useDispatch();
-  var src = `img/icon/${props.ui != null ? "ui/" : ""}${props.src}.png`;
-  if (props.ext != null || (props.src && props.src.includes("http"))) {
+  var src = `img/icon/${props.ui != null ? 'ui/' : ''}${props.src}.png`;
+
+  if (props.ext != null || (props.src && props.src.includes('http'))) {
     src = props.src;
   }
-
-  var prtclk = "";
+  var prtclk = '';
   if (props.src) {
     if (props.onClick != null || props.pr != null) {
-      prtclk = "prtclk";
+      prtclk = 'prtclk';
     }
   }
 
@@ -51,7 +51,7 @@ export const Icon = (props) => {
   if (props.fafa != null) {
     return (
       <div
-        className={`uicon prtclk ${props.className || ""}`}
+        className={`uicon prtclk ${props.className || ''}`}
         onClick={props.onClick || (props.click && clickDispatch) || null}
         data-action={props.click}
         data-payload={props.payload}
@@ -59,17 +59,15 @@ export const Icon = (props) => {
       >
         <FontAwesomeIcon
           data-flip={props.flip != null}
-          data-invert={props.invert != null ? "true" : "false"}
-          data-rounded={props.rounded != null ? "true" : "false"}
+          data-invert={props.invert != null ? 'true' : 'false'}
+          data-rounded={props.rounded != null ? 'true' : 'false'}
           style={{
             width: props.width,
             height: props.height || props.width,
             color: props.color || null,
             margin: props.margin || null,
           }}
-          icon={
-            props.reg == null ? FaIcons[props.fafa] : FaRegIcons[props.fafa]
-          }
+          icon={props.reg == null ? FaIcons[props.fafa] : FaRegIcons[props.fafa]}
         />
       </div>
     );
@@ -77,7 +75,7 @@ export const Icon = (props) => {
     var CustomIcon = AllIcons[props.icon];
     return (
       <div
-        className={`uicon prtclk ${props.className || ""}`}
+        className={`uicon prtclk ${props.className || ''}`}
         onClick={props.onClick || (props.click && clickDispatch) || null}
         data-action={props.click}
         data-payload={props.payload}
@@ -85,8 +83,8 @@ export const Icon = (props) => {
       >
         <CustomIcon
           data-flip={props.flip != null}
-          data-invert={props.invert != null ? "true" : "false"}
-          data-rounded={props.rounded != null ? "true" : "false"}
+          data-invert={props.invert != null ? 'true' : 'false'}
+          data-rounded={props.rounded != null ? 'true' : 'false'}
           style={{
             width: props.width,
             height: props.height || props.width,
@@ -99,7 +97,7 @@ export const Icon = (props) => {
   } else {
     return (
       <div
-        className={`uicon ${props.className || ""} ${prtclk}`}
+        className={`uicon ${props.className || ''} ${prtclk}`}
         data-open={props.open}
         data-action={props.click}
         data-active={props.active}
@@ -108,7 +106,7 @@ export const Icon = (props) => {
         data-menu={props.menu}
         data-pr={props.pr}
       >
-        {props.className == "tsIcon" ? (
+        {props.className == 'tsIcon' ? (
           <div
             onClick={props.click != null ? clickDispatch : null}
             style={{ width: props.width, height: props.width }}
@@ -116,8 +114,8 @@ export const Icon = (props) => {
             data-payload={props.payload}
             data-click={props.click != null}
             data-flip={props.flip != null}
-            data-invert={props.invert != null ? "true" : "false"}
-            data-rounded={props.rounded != null ? "true" : "false"}
+            data-invert={props.invert != null ? 'true' : 'false'}
+            data-rounded={props.rounded != null ? 'true' : 'false'}
           >
             <img
               width={props.width}
@@ -126,8 +124,8 @@ export const Icon = (props) => {
               data-payload={props.payload}
               data-click={props.click != null}
               data-flip={props.flip != null}
-              data-invert={props.invert != null ? "true" : "false"}
-              data-rounded={props.rounded != null ? "true" : "false"}
+              data-invert={props.invert != null ? 'true' : 'false'}
+              data-rounded={props.rounded != null ? 'true' : 'false'}
               src={src}
               style={{
                 margin: props.margin || null,
@@ -144,8 +142,8 @@ export const Icon = (props) => {
             data-payload={props.payload}
             data-click={props.click != null}
             data-flip={props.flip != null}
-            data-invert={props.invert != null ? "true" : "false"}
-            data-rounded={props.rounded != null ? "true" : "false"}
+            data-invert={props.invert != null ? 'true' : 'false'}
+            data-rounded={props.rounded != null ? 'true' : 'false'}
             src={src}
             style={{
               margin: props.margin || null,
@@ -160,7 +158,7 @@ export const Icon = (props) => {
 
 export const Image = (props) => {
   const dispatch = useDispatch();
-  var src = `img/${(props.dir ? props.dir + "/" : "") + props.src}.png`;
+  var src = `img/${(props.dir ? props.dir + '/' : '') + props.src}.png`;
   if (props.ext != null) {
     src = props.src;
   }
@@ -184,7 +182,7 @@ export const Image = (props) => {
 
   return (
     <div
-      className={`imageCont prtclk ${props.className || ""}`}
+      className={`imageCont prtclk ${props.className || ''}`}
       id={props.id}
       style={{
         backgroundImage: props.back && `url(${src})`,
@@ -202,7 +200,7 @@ export const Image = (props) => {
             height={props.h}
             data-free={props.free != null}
             data-var={props.var}
-            loading={props.lazy ? "lazy" : null}
+            loading={props.lazy ? 'lazy' : null}
             src={src}
             alt=""
             onError={errorHandler}
@@ -213,7 +211,7 @@ export const Image = (props) => {
             height={props.h}
             data-free={props.free != null}
             data-var={props.var}
-            loading={props.lazy ? "lazy" : null}
+            loading={props.lazy ? 'lazy' : null}
             src={src}
             alt=""
             onError={errorHandler}
@@ -229,9 +227,10 @@ export const SnapScreen = (props) => {
   const [delay, setDelay] = useState(false);
   const lays = useSelector((state) => state.globals.lays);
 
-  const vr = "var(--radii)";
+  const vr = 'var(--radii)';
 
   const clickDispatch = (event) => {
+    console.log(event.currentTarget.dataset.action, 'lll');
     var action = {
       type: event.currentTarget.dataset.action,
       payload: event.currentTarget.dataset.payload,
@@ -297,7 +296,7 @@ export const ToolBar = (props) => {
   const toolClick = () => {
     dispatch({
       type: props.app,
-      payload: "front",
+      payload: 'front',
     });
   };
 
@@ -315,11 +314,9 @@ export const ToolBar = (props) => {
     op = e.currentTarget.dataset.op;
 
     if (op == 0) {
-      wnapp =
-        e.currentTarget.parentElement &&
-        e.currentTarget.parentElement.parentElement;
+      wnapp = e.currentTarget.parentElement && e.currentTarget.parentElement.parentElement;
     } else {
-      vec = e.currentTarget.dataset.vec.split(",");
+      vec = e.currentTarget.dataset.vec.split(',');
       wnapp =
         e.currentTarget.parentElement &&
         e.currentTarget.parentElement.parentElement &&
@@ -327,12 +324,12 @@ export const ToolBar = (props) => {
     }
 
     if (wnapp) {
-      wnapp.classList.add("notrans");
-      wnapp.classList.add("z9900");
+      wnapp.classList.add('notrans');
+      wnapp.classList.add('z9900');
       posP = [wnapp.offsetTop, wnapp.offsetLeft];
       dimP = [
-        parseFloat(getComputedStyle(wnapp).height.replaceAll("px", "")),
-        parseFloat(getComputedStyle(wnapp).width.replaceAll("px", "")),
+        parseFloat(getComputedStyle(wnapp).height.replaceAll('px', '')),
+        parseFloat(getComputedStyle(wnapp).width.replaceAll('px', '')),
       ];
     }
 
@@ -341,13 +338,13 @@ export const ToolBar = (props) => {
   };
 
   const setPos = (pos0, pos1) => {
-    wnapp.style.top = pos0 + "px";
-    wnapp.style.left = pos1 + "px";
+    wnapp.style.top = pos0 + 'px';
+    wnapp.style.left = pos1 + 'px';
   };
 
   const setDim = (dim0, dim1) => {
-    wnapp.style.height = dim0 + "px";
-    wnapp.style.width = dim1 + "px";
+    wnapp.style.height = dim0 + 'px';
+    wnapp.style.width = dim1 + 'px';
   };
 
   const eleDrag = (e) => {
@@ -374,12 +371,12 @@ export const ToolBar = (props) => {
     document.onmouseup = null;
     document.onmousemove = null;
 
-    wnapp.classList.remove("notrans");
-    wnapp.classList.remove("z9900");
+    wnapp.classList.remove('notrans');
+    wnapp.classList.remove('z9900');
 
     var action = {
       type: props.app,
-      payload: "resize",
+      payload: 'resize',
       dim: {
         width: getComputedStyle(wnapp).width,
         height: getComputedStyle(wnapp).height,
@@ -409,10 +406,7 @@ export const ToolBar = (props) => {
           data-op="0"
         >
           <Icon src={props.icon} width={14} />
-          <div
-            className="appFullName text-xss"
-            data-white={props.invert != null}
-          >
+          <div className="appFullName text-xss" data-white={props.invert != null}>
             {props.name}
           </div>
         </div>
@@ -439,14 +433,9 @@ export const ToolBar = (props) => {
               pr
               width={12}
               payload="mxmz"
-              src={props.size == "full" ? "maximize" : "maxmin"}
+              src={props.size == 'full' ? 'maximize' : 'maxmin'}
             />
-            <SnapScreen
-              invert={props.invert}
-              app={props.app}
-              snap={snap}
-              closeSnap={closeSnap}
-            />
+            <SnapScreen invert={props.invert} app={props.app} snap={snap} closeSnap={closeSnap} />
             {/* {snap?<SnapScreen app={props.app} closeSnap={closeSnap}/>:null} */}
           </div>
           <Icon

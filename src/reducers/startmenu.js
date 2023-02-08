@@ -1,4 +1,4 @@
-import { pinnedApps, recentApps } from "../utils";
+import { pinnedApps, recentApps } from "../utils"
 
 const defState = {
   pnApps: pinnedApps,
@@ -6,6 +6,11 @@ const defState = {
   hide: true,
   menu: false,
   showAll: false,
+  lulz: false,
+  assignments: [
+    { name: "Math", due: "Today" },
+    { name: "English", due: "Tomorrow" },
+  ],
   alpha: false,
   pwctrl: false,
   curAlpha: "A",
@@ -15,9 +20,10 @@ const defState = {
     ["faFilm", null, "New movies"],
     ["faNewspaper", 1, "Top news"],
   ],
-};
+}
 
 const menuReducer = (state = defState, action) => {
+  // console.log('menuReducer', staste);
   switch (action.type) {
     case "STARTSHW":
       return {
@@ -25,14 +31,15 @@ const menuReducer = (state = defState, action) => {
         menu: true,
         hide: false,
         pwctrl: false,
-      };
+        lulz: true,
+      }
     case "STARTHID":
       return {
         ...state,
         hide: true,
         showAll: false,
         pwctrl: false,
-      };
+      }
     case "STARTOGG":
       return {
         ...state,
@@ -42,7 +49,16 @@ const menuReducer = (state = defState, action) => {
         curAlpha: "A",
         pwctrl: false,
         showAll: state.menu && state.showAll ? true : null,
-      };
+        lulz: state.lulz,
+      }
+    case "STARTBOBO":
+      return {
+        ...state,
+        pwctrl: false,
+        curAlpha: "A",
+        lulz: !state.lulz,
+      }
+
     case "STARTALL":
       return {
         ...state,
@@ -50,29 +66,30 @@ const menuReducer = (state = defState, action) => {
         alpha: false,
         pwctrl: false,
         curAlpha: "A",
-      };
+      }
     case "STARTALPHA":
       return {
         ...state,
         alpha: !state.alpha,
         pwctrl: false,
         curAlpha: action.payload || "A",
-      };
+      }
     case "STARTSRC":
       return {
         ...state,
         hide: !(state.hide || state.menu),
         menu: false,
         pwctrl: false,
-      };
+      }
     case "STARTPWC":
       return {
         ...state,
         pwctrl: true,
-      };
-    default:
-      return state;
-  }
-};
+      }
 
-export default menuReducer;
+    default:
+      return state
+  }
+}
+
+export default menuReducer

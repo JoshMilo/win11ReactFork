@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Icon } from "../../utils/general";
-import Battery from "../shared/Battery";
-import "./taskbar.scss";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Icon } from "../../utils/general"
+import Battery from "../shared/Battery"
+import "./taskbar.scss"
 
 const Taskbar = () => {
   const tasks = useSelector((state) => {
-    return state.taskbar;
-  });
+    return state.taskbar
+  })
   const apps = useSelector((state) => {
-    var tmpApps = { ...state.apps };
+    var tmpApps = { ...state.apps }
     for (var i = 0; i < state.taskbar.apps.length; i++) {
-      tmpApps[state.taskbar.apps[i].icon].task = true;
+      tmpApps[state.taskbar.apps[i].icon].task = true
     }
-    return tmpApps;
-  });
-  const dispatch = useDispatch();
+    return tmpApps
+  })
+  const dispatch = useDispatch()
 
   const showPrev = (event) => {
-    var ele = event.target;
+    var ele = event.target
     while (ele && ele.getAttribute("value") == null) {
-      ele = ele.parentElement;
+      ele = ele.parentElement
     }
 
-    var appPrev = ele.getAttribute("value");
-    var xpos = window.scrollX + ele.getBoundingClientRect().left;
+    var appPrev = ele.getAttribute("value")
+    var xpos = window.scrollX + ele.getBoundingClientRect().left
 
-    var offsetx = Math.round((xpos * 10000) / window.innerWidth) / 100;
+    var offsetx = Math.round((xpos * 10000) / window.innerWidth) / 100
 
     dispatch({
       type: "TASKPSHOW",
@@ -34,32 +34,33 @@ const Taskbar = () => {
         app: appPrev,
         pos: offsetx,
       },
-    });
-  };
+    })
+  }
 
   const hidePrev = () => {
-    dispatch({ type: "TASKPHIDE" });
-  };
+    dispatch({ type: "TASKPHIDE" })
+  }
 
   const clickDispatch = (event) => {
+    console.log("ooo", event.target.dataset)
     var action = {
       type: event.target.dataset.action,
       payload: event.target.dataset.payload,
-    };
+    }
 
     if (action.type) {
-      dispatch(action);
+      dispatch(action)
     }
-  };
+  }
 
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(new Date())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+      setTime(new Date())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="taskbar">
@@ -67,6 +68,8 @@ const Taskbar = () => {
         <div className="tasksCont" data-menu="task" data-side={tasks.align}>
           <div className="tsbar" onMouseOut={hidePrev}>
             <Icon className="tsIcon" src="home" width={24} click="STARTOGG" />
+            {/* <Icon className="tsIcon" src="voice" width={24} click="STARTBOBO" /> */}
+
             {tasks.search ? (
               <Icon
                 click="STARTSRC"
@@ -83,8 +86,8 @@ const Taskbar = () => {
               />
             ) : null}
             {tasks.apps.map((task, i) => {
-              var isHidden = apps[task.icon].hide;
-              var isActive = apps[task.icon].z == apps.hz;
+              var isHidden = apps[task.icon].hide
+              var isActive = apps[task.icon].z == apps.hz
               return (
                 <div
                   key={i}
@@ -101,11 +104,11 @@ const Taskbar = () => {
                     src={task.icon}
                   />
                 </div>
-              );
+              )
             })}
             {Object.keys(apps).map((key, i) => {
               if (key != "hz") {
-                var isActive = apps[key].z == apps.hz;
+                var isActive = apps[key].z == apps.hz
               }
               return key != "hz" &&
                 key != "undefined" &&
@@ -116,7 +119,7 @@ const Taskbar = () => {
                   onMouseOver={(!isActive && showPrev) || null}
                   value={apps[key].icon}
                 >
-                  <Icon
+                  {/* <Icon
                     className="tsIcon"
                     width={24}
                     active={isActive}
@@ -124,9 +127,9 @@ const Taskbar = () => {
                     payload="togg"
                     open="true"
                     src={apps[key].icon}
-                  />
+                  /> */}
                 </div>
-              ) : null;
+              ) : null
             })}
           </div>
         </div>
@@ -176,7 +179,7 @@ const Taskbar = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Taskbar;
+export default Taskbar
