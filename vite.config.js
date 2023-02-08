@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { VitePWA } from "vite-plugin-pwa";
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import { VitePWA } from "vite-plugin-pwa"
 
 const config = ({ mode }) => {
   return defineConfig({
@@ -19,12 +19,12 @@ const config = ({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            return "vendor";
+            return "vendor"
           },
         },
       },
     },
-  });
-};
+  })
+}
 
-export default config;
+export default config

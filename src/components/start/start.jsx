@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { SearchPane } from "./search"
 import { WindowsStart, OldWindowsStart } from "./windows-start"
+import { Configuration, OpenAIApi } from "openai"
 
 export const StartMenu = () => {
   const searchResults = [
@@ -112,6 +113,31 @@ export const StartMenu = () => {
       ],
     },
   ]
+  console.log(import.meta.env)
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [items, setItems] = useState([])
+
+  console.log("vite says:", import.meta.env.VITE_SUPAFLY)
+
+  // useEffect(() => {
+  //   fetch("https://api.example.com/items")
+  //     .then((res) => res.json())
+  //     .then(
+  //       (result) => {
+  //         setIsLoaded(true)
+  //         setItems(result)
+  //       },
+  //       // Note: it's important to handle errors here
+  //       // instead of a catch() block so that we don't swallow
+  //       // exceptions from actual bugs in components.
+  //       (error) => {
+  //         setIsLoaded(true)
+  //         setError(error)
+  //       }
+  //     )
+  // }, [])
+
   const { align } = useSelector((state) => state.taskbar)
   const start = useSelector((state) => {
     var arr = state.startmenu,
@@ -217,12 +243,6 @@ export const StartMenu = () => {
           break
         }
       }
-    }
-
-    if (query.length == 0) {
-      dispatch({
-        type: "STARTBOBO",
-      })
     }
   }, [query])
 

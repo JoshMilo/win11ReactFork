@@ -23,7 +23,6 @@ const defState = {
 }
 
 const menuReducer = (state = defState, action) => {
-  // console.log('menuReducer', staste);
   switch (action.type) {
     case "STARTSHW":
       return {
