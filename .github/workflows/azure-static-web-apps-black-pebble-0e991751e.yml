@@ -8,6 +8,8 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - files-search
+env:
+  VITE_SUPAFLY: ${{ secrets.VITE_SUPAFLY }}
 
 jobs:
   build_and_deploy_job:
@@ -18,8 +20,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-        env:
-          VITE_SUPAFLY: ${{ secrets.VITE_SUPAFLY }}
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
