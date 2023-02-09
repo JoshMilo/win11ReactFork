@@ -11,17 +11,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 console.log(import.meta.env)
 
-// const response = await openai.createCompletion({
-//   model: "text-davinci-003",
-//   prompt: "Write a limerick about a cute cat",
-//   temperature: 0,
-//   max_tokens: 256,
-//   top_p: 1,
-//   frequency_penalty: 0,
-//   presence_penalty: 0,
-// })
-// console.log(response)
-
 export const StartMenu = () => {
   const searchResults = [
     {
