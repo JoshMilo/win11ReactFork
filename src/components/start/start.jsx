@@ -6,7 +6,7 @@ import { Configuration, OpenAIApi } from "openai"
 import { useMutation } from "react-query"
 
 const configuration = new Configuration({
-  apiKey: import.meta.env.VITE_API_KEY,
+  apiKey: import.meta.env.VITE_AI_KEY,
 })
 const openai = new OpenAIApi(configuration)
 
