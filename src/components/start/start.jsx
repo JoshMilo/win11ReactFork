@@ -9,6 +9,7 @@ const configuration = new Configuration({
   apiKey: import.meta.env.VITE_AI_KEY,
 })
 const openai = new OpenAIApi(configuration)
+console.log(import.meta.env)
 
 // const response = await openai.createCompletion({
 //   model: "text-davinci-003",
