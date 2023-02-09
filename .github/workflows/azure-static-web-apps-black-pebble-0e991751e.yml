@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true
         env:
-          vite_supafly: ${{ secrets.VITE_SUPAFLY }}
+          VITE_SUPAFLY: ${{ secrets.VITE_SUPAFLY }}
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
