@@ -6,7 +6,7 @@ import { PreviewCard } from "./preview-card"
 
 const Loader = () => {
   return (
-    <div className="" id="loader">
+    <div className="top-[40%]" id="loader2">
       <svg className="progressRing" height={48} width={48} viewBox="0 0 16 16">
         <circle cx="8px" cy="8px" r="7px"></circle>
       </svg>
@@ -15,7 +15,7 @@ const Loader = () => {
 }
 
 export const WindowsStart = (props) => {
-  const { query, setQuery, match, tabSw, atab, clickDispatch } = props
+  const { query, setQuery, clickDispatch, answer, mutation } = props
 
   const start = useSelector((state) => {
     var arr = state.startmenu,
@@ -67,8 +67,12 @@ export const WindowsStart = (props) => {
     return arr
   })
 
+  const text = answer.split("\n").map((e, i) => <p key={i}>{e}</p>)
+
   return (
     <>
+      {mutation.isLoading && <Loader />}
+
       <div className="stmenu" data-allapps={start.showAll}>
         <div className="menuUp">
           <div className="searchBar relative z-50">
@@ -84,62 +88,46 @@ export const WindowsStart = (props) => {
               autoFocus
             />
           </div>
-          <div
-            className="allCont"
-            data-allapps={start.alpha}
-            data-bobo={start.lulz}
-          >
-            <div className="appCont">
-              <div
-                className="allApps aiFrame win11Scroll"
-                data-alpha={start.alpha}
-              >
-                <h2 className="text-xl font-semibold text-left">
-                  Past essays related to your upcoming assignment
-                </h2>
-                <div className="flex gap-3 mb-7">
-                  <PreviewCard />
-                  <PreviewCard />
-                  <PreviewCard />
-                </div>
-                <div className="flex flex-col items-start mb-10">
-                  {/* <h2 className="text-xl font-semibold pl-8 pt-6">
-                    Essays that are best to reference
+          {mutation.isSuccess && (
+            <div
+              className="allCont"
+              data-allapps={start.alpha}
+              data-bobo={true}
+            >
+              <div className="appCont">
+                <div
+                  className="allApps aiFrame win11Scroll"
+                  data-alpha={start.alpha}
+                >
+                  <div className="flex flex-col items-start glass-pane mb-10 pb-4">
+                    <h2 className="text-lg font-semibold pl-8 pt-1">
+                      Results:
+                    </h2>
+                    <div className="pl-8 m-0 text-left text-sm">{text}</div>
+                  </div>
+                  {/* <h2 className="text-xl font-semibold text-left">
+                    Past essays related to your upcoming assignment
                   </h2> */}
-                  <AssignmentCard />
-                  <AssignmentCard />
-                  <AssignmentCard />
-                </div>
-                <div className="flex flex-col items-start glass-pane">
-                  <h2 className="text-xl font-semibold pl-8 pt-6">
-                    Essays from your 8th grade English class
-                  </h2>
-                  <ul>
-                    <li>Essay 1</li>
-                    <li>Essay 2</li>
-                    <li>Essay 3</li>
-                    <li>Essay 4</li>
-                    <li>Essay 5</li>
-                    <li>Essay 1</li>
-                    <li>Essay 2</li>
-                    <li>Essay 3</li>
-                    <li>Essay 4</li>
-                    <li>Essay 5</li>
-                    <li>Essay 1</li>
-                    <li>Essay 2</li>
-                    <li>Essay 3</li>
-                    <li>Essay 4</li>
-                    <li>Essay 5</li>
-                    <li>Essay 1</li>
-                    <li>Essay 2</li>
-                    <li>Essay 3</li>
-                    <li>Essay 4</li>
-                    <li>Essay 5</li>
-                  </ul>
+                  <div className="flex gap-3 mb-7">
+                    <PreviewCard />
+                    <PreviewCard />
+                    <PreviewCard />
+                  </div>
+                  <div className="flex flex-col items-start mb-10">
+                    {/* <h2 className="text-xl font-semibold pl-8 pt-6">
+                         Essays that are best to reference
+                       </h2> */}
+                    <AssignmentCard />
+                    <AssignmentCard />
+                    <AssignmentCard />
+                    <AssignmentCard />
+                    <AssignmentCard />
+                    <AssignmentCard />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

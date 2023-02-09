@@ -3,6 +3,23 @@ import { useSelector, useDispatch } from "react-redux"
 import { SearchPane } from "./search"
 import { WindowsStart, OldWindowsStart } from "./windows-start"
 import { Configuration, OpenAIApi } from "openai"
+import { useMutation } from "react-query"
+
+const configuration = new Configuration({
+  apiKey: import.meta.env.VITE_API_KEY,
+})
+const openai = new OpenAIApi(configuration)
+
+// const response = await openai.createCompletion({
+//   model: "text-davinci-003",
+//   prompt: "Write a limerick about a cute cat",
+//   temperature: 0,
+//   max_tokens: 256,
+//   top_p: 1,
+//   frequency_penalty: 0,
+//   presence_penalty: 0,
+// })
+// console.log(response)
 
 export const StartMenu = () => {
   const searchResults = [
@@ -113,30 +130,33 @@ export const StartMenu = () => {
       ],
     },
   ]
-  console.log(import.meta.env)
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [items, setItems] = useState([])
+  const [query, setQuery] = useState("")
+  const [match, setMatch] = useState({})
+  const [atab, setTab] = useState("All")
+  const [answer, setAnswer] = useState("")
 
-  console.log("vite says:", import.meta.env.VITE_SUPAFLY)
+  const getAnswers = async () => {
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: query,
+      temperature: 0,
+      max_tokens: 256,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    })
+    return response
+  }
 
-  // useEffect(() => {
-  //   fetch("https://api.example.com/items")
-  //     .then((res) => res.json())
-  //     .then(
-  //       (result) => {
-  //         setIsLoaded(true)
-  //         setItems(result)
-  //       },
-  //       // Note: it's important to handle errors here
-  //       // instead of a catch() block so that we don't swallow
-  //       // exceptions from actual bugs in components.
-  //       (error) => {
-  //         setIsLoaded(true)
-  //         setError(error)
-  //       }
-  //     )
-  // }, [])
+  const mutation = useMutation(getAnswers, {
+    onSuccess: (data) => {
+      console.log("data", data)
+      setAnswer(data.data.choices[0].text)
+    },
+    onError: (error) => {
+      console.log("error", error)
+    },
+  })
 
   const { align } = useSelector((state) => state.taskbar)
   const start = useSelector((state) => {
@@ -189,9 +209,6 @@ export const StartMenu = () => {
     return arr
   })
 
-  const [query, setQuery] = useState("")
-  const [match, setMatch] = useState({})
-  const [atab, setTab] = useState("All")
   // const [pwctrl, setPowCtrl] = useState
 
   const dispatch = useDispatch()
@@ -232,6 +249,7 @@ export const StartMenu = () => {
       dispatch({
         type: "STARTBOBO",
       })
+      mutation.mutate()
     }
   }
 
@@ -246,7 +264,7 @@ export const StartMenu = () => {
     }
   }, [query])
 
-  const userName = useSelector((state) => state.setting.person.name)
+  // const userName = useSelector((state) => state.setting.person.name)
 
   return (
     <div
@@ -261,6 +279,8 @@ export const StartMenu = () => {
           clickDispatch={clickDispatch}
           query={query}
           setQuery={setQuery}
+          mutation={mutation}
+          answer={answer}
         />
       ) : (
         <>

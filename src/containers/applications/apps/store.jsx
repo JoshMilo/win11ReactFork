@@ -1,135 +1,134 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Icon, Image, ToolBar, LazyComponent } from "../../../utils/general";
-import "./assets/store.scss";
-import axios from "axios";
-import storedata from "./assets/store.json";
-import { installApp } from "../../../actions";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { Icon, Image, ToolBar, LazyComponent } from "../../../utils/general"
+import "./assets/store.scss"
+import axios from "axios"
+import storedata from "./assets/store.json"
+import { installApp } from "../../../actions"
+import { useTranslation } from "react-i18next"
 
 const geneStar = (item, rv = 0) => {
   var url = item.data.url,
-    stars = 0;
+    stars = 0
 
   for (var i = 0; i < url.length; i++) {
-    if (rv) stars += url[i].charCodeAt() / (i + 3);
-    else stars += url[i].charCodeAt() / (i + 2);
+    if (rv) stars += url[i].charCodeAt() / (i + 3)
+    else stars += url[i].charCodeAt() / (i + 2)
   }
 
   if (rv) {
-    stars = stars % 12;
-    stars = Math.round(stars * 1000);
+    stars = stars % 12
+    stars = Math.round(stars * 1000)
   } else {
-    stars = stars % 4;
-    stars = Math.round(stars * 10) / 10;
+    stars = stars % 4
+    stars = Math.round(stars * 10) / 10
   }
 
-  return 1 + stars;
-};
+  return 1 + stars
+}
 
 const emap = (v) => {
-  v = Math.min(1 / v, 10);
-  return v / 11;
-};
+  v = Math.min(1 / v, 10)
+  return v / 11
+}
 
 export const MicroStore = () => {
-  const apps = useSelector((state) => state.apps);
-  const queryParams = new URLSearchParams(window.location.search);
-  const wnapp = useSelector((state) => state.apps.store);
-  const hide = useSelector((state) => state.apps.store.hide);
-  const [tab, setTab] = useState("sthome");
-  const [page, setPage] = useState(0);
-  const [opapp, setOpapp] = useState(storedata[0]);
-  const [storeapps, setApps] = useState(storedata);
-  const [fetchState, setFetch] = useState(0);
-  const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const apps = useSelector((state) => state.apps)
+  const queryParams = new URLSearchParams(window.location.search)
+  const wnapp = useSelector((state) => state.apps.store)
+  const hide = useSelector((state) => state.apps.store.hide)
+  const [tab, setTab] = useState("sthome")
+  const [page, setPage] = useState(0)
+  const [opapp, setOpapp] = useState(storedata[0])
+  const [storeapps, setApps] = useState(storedata)
+  const [fetchState, setFetch] = useState(0)
+  const dispatch = useDispatch()
+  const { t, i18n } = useTranslation()
 
   const clickDispatch = (event) => {
     var action = {
       type: event.target.dataset.action,
       payload: event.target.dataset.payload,
-    };
+    }
 
-    if (action.type) dispatch(action);
-  };
+    if (action.type) dispatch(action)
+  }
 
   const action = (e) => {
     var act = e.target.dataset.action,
-      payload = e.target.dataset.payload;
+      payload = e.target.dataset.payload
 
-    // console.log(act, payload);
-    if (act == "page1") setPage(act[4]);
+    if (act == "page1") setPage(act[4])
     else if (act == "page2") {
       for (var i = 0; i < storeapps.length; i++) {
         if (storeapps[i].data.url == payload) {
-          setOpapp(storeapps[i]);
-          setPage(2);
-          break;
+          setOpapp(storeapps[i])
+          setPage(2)
+          break
         }
       }
     }
-  };
+  }
 
   const totab = (e) => {
-    var x = e.target && e.target.dataset.action;
+    var x = e.target && e.target.dataset.action
     if (x) {
-      setPage(0);
+      setPage(0)
       setTimeout(() => {
-        var target = document.getElementById(x);
+        var target = document.getElementById(x)
         if (target) {
           var tsof = target.parentNode.parentNode.scrollTop,
-            trof = target.offsetTop;
+            trof = target.offsetTop
 
           if (Math.abs(tsof - trof) > window.innerHeight * 0.1) {
-            target.parentNode.parentNode.scrollTop = target.offsetTop;
+            target.parentNode.parentNode.scrollTop = target.offsetTop
           }
         }
-      }, 200);
+      }, 200)
     }
-  };
+  }
 
   const frontScroll = (e) => {
     if (page == 0) {
       var tabs = ["sthome", "apprib", "gamerib", "movrib"],
         mntab = "sthome",
-        mndis = window.innerHeight;
+        mndis = window.innerHeight
 
       tabs.forEach((x) => {
-        var target = document.getElementById(x);
+        var target = document.getElementById(x)
         if (target) {
           var tsof = target.parentNode.parentNode.scrollTop,
-            trof = target.offsetTop;
+            trof = target.offsetTop
 
           if (Math.abs(tsof - trof) < mndis) {
-            mntab = x;
-            mndis = Math.abs(tsof - trof);
+            mntab = x
+            mndis = Math.abs(tsof - trof)
           }
         }
-      });
+      })
 
-      setTab(mntab);
+      setTab(mntab)
     }
-  };
+  }
 
   useEffect(() => {
     if (!wnapp.hide && fetchState == 0) {
-      var url = queryParams.get("customstore");
-      if (!url) url = "https://store.win11react.com/store/index.json";
+      var url = queryParams.get("customstore")
+      if (!url) url = "https://store.win11react.com/store/index.json"
 
       axios
         .get(url)
         .then((res) => res.data)
         .then((data) => {
-          if (data) setApps(data);
+          if (data) setApps(data)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
 
-      setFetch(1);
+      setFetch(1)
     }
-  }, [hide]);
+  }, [hide])
 
   return (
     <div
@@ -201,11 +200,11 @@ export const MicroStore = () => {
         </LazyComponent>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const DownPage = ({ action, apps }) => {
-  const [catg, setCatg] = useState("all");
+  const [catg, setCatg] = useState("all")
 
   return (
     <div className="pagecont w-full absolute top-0 box-border p-12">
@@ -244,10 +243,10 @@ const DownPage = ({ action, apps }) => {
       </div>
       <div className="appscont mt-8">
         {apps.map((item, i) => {
-          if (item.type != catg && catg != "all") return;
+          if (item.type != catg && catg != "all") return
 
-          var stars = geneStar(item);
-          var reviews = Math.round(geneStar(item, 1) / 100) / 10;
+          var stars = geneStar(item)
+          var reviews = Math.round(geneStar(item, 1) / 100) / 10
 
           return (
             <div
@@ -300,37 +299,37 @@ const DownPage = ({ action, apps }) => {
               </div>
               <div className="text-xss mt-8">{"Free"}</div>
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const DetailPage = ({ app }) => {
-  const apps = useSelector((state) => state.apps);
-  const [dstate, setDown] = useState(0);
-  const stars = geneStar(app);
-  const reviews = geneStar(app, 1);
-  const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const apps = useSelector((state) => state.apps)
+  const [dstate, setDown] = useState(0)
+  const stars = geneStar(app)
+  const reviews = geneStar(app, 1)
+  const dispatch = useDispatch()
+  const { t, i18n } = useTranslation()
 
   const download = () => {
-    setDown(1);
+    setDown(1)
     setTimeout(() => {
-      installApp(app);
-      setDown(3);
-    }, 3000);
-  };
+      installApp(app)
+      setDown(3)
+    }, 3000)
+  }
 
-  const refresh = () => window.location.reload();
+  const refresh = () => window.location.reload()
   const openApp = () => {
-    dispatch({ type: apps[app.icon].action, payload: "full" });
-  };
+    dispatch({ type: apps[app.icon].action, payload: "full" })
+  }
 
   useEffect(() => {
-    if (apps[app.icon] != null) setDown(3);
-  }, [dstate]);
+    if (apps[app.icon] != null) setDown(3)
+  }, [dstate])
 
   return (
     <div className="detailpage w-full absolute top-0 flex">
@@ -441,7 +440,7 @@ const DetailPage = ({ app }) => {
                       ></div>
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -454,15 +453,15 @@ const DetailPage = ({ app }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const FrontPage = (props) => {
-  const ribbon = useSelector((state) => state.globals.ribbon);
-  const apprib = useSelector((state) => state.globals.apprib);
-  const gamerib = useSelector((state) => state.globals.gamerib);
-  const movrib = useSelector((state) => state.globals.movrib);
-  const { t, i18n } = useTranslation();
+  const ribbon = useSelector((state) => state.globals.ribbon)
+  const apprib = useSelector((state) => state.globals.apprib)
+  const gamerib = useSelector((state) => state.globals.gamerib)
+  const movrib = useSelector((state) => state.globals.movrib)
+  const { t, i18n } = useTranslation()
 
   return (
     <div className="pagecont w-full absolute top-0">
@@ -501,7 +500,7 @@ const FrontPage = (props) => {
                   dir="store/float"
                   src={x}
                 />
-              );
+              )
             })}
         </div>
       </div>
@@ -517,7 +516,7 @@ const FrontPage = (props) => {
         <div className="flex w-max pr-8">
           {apprib &&
             apprib.map((x, i) => {
-              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3);
+              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3)
               return (
                 <div key={i} className="ribcont rounded my-auto p-2 pb-2">
                   <Image
@@ -551,7 +550,7 @@ const FrontPage = (props) => {
                     )}
                   </div>
                 </div>
-              );
+              )
             })}
         </div>
       </div>
@@ -568,7 +567,7 @@ const FrontPage = (props) => {
         <div className="flex w-max pr-8">
           {gamerib &&
             gamerib.map((x, i) => {
-              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3);
+              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3)
               return (
                 <div key={i} className="ribcont rounded my-auto p-2 pb-2">
                   <Image
@@ -602,7 +601,7 @@ const FrontPage = (props) => {
                     )}
                   </div>
                 </div>
-              );
+              )
             })}
         </div>
       </div>
@@ -619,7 +618,7 @@ const FrontPage = (props) => {
         <div className="flex w-max pr-8">
           {movrib &&
             movrib.map((x, i) => {
-              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3);
+              var stars = 3 + ((x.charCodeAt(0) + x.charCodeAt(1)) % 3)
               return (
                 <div key={i} className="ribcont rounded my-auto p-2 pb-2">
                   <Image
@@ -653,10 +652,10 @@ const FrontPage = (props) => {
                     )}
                   </div>
                 </div>
-              );
+              )
             })}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

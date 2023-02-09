@@ -42,7 +42,6 @@ const Taskbar = () => {
   }
 
   const clickDispatch = (event) => {
-    console.log("ooo", event.target.dataset)
     var action = {
       type: event.target.dataset.action,
       payload: event.target.dataset.payload,

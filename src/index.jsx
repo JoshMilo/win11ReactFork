@@ -1,10 +1,12 @@
-import React, { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
-import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
-import App from './App';
-import store from './reducers';
-import { Provider } from 'react-redux';
+import React, { Suspense } from "react"
+import { createRoot } from "react-dom/client"
+import * as Sentry from "@sentry/react"
+import { BrowserTracing } from "@sentry/tracing"
+import App from "./App"
+import store from "./reducers"
+import { Provider } from "react-redux"
+import { useQueryClient, QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 // Sentry.init({
 //   dsn: "https://6c16d34365334e0fbee992044f9d223b@o575799.ingest.sentry.io/6251530",
@@ -17,7 +19,8 @@ import { Provider } from 'react-redux';
 //   tracesSampleRate: 1.0,
 // });
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById("root"))
+const queryClient = new QueryClient()
 
 root.render(
   <Suspense
@@ -28,7 +31,10 @@ root.render(
     }
   >
     <Provider store={store}>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </Provider>
   </Suspense>
-);
+)
