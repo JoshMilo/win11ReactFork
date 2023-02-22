@@ -1,3 +1,101 @@
+.teams {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 69px 2.3fr;
+  grid-template-rows: 50px 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "header header"
+    "leftRail frame"
+    "leftRail frame";
+  background-color: #f5f5f5;
+}
+
+.header {
+  grid-area: header;
+}
+
+.leftRail {
+  grid-area: leftRail;
+}
+
+.sideBar {
+  color: #222;
+}
+
+div[data-tabster] {
+  max-width: fit-content;
+}
+
+div[class*="fui-DialogBody"] {
+  max-width: fit-content;
+}
+
+.ghost-btn {
+  position: absolute;
+  padding: 1rem 5rem;
+  top: 18rem;
+  left: 4rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.teamTypeGhost {
+  position: absolute;
+  left: 26.6rem;
+  top: 6rem;
+  padding: 8rem 6rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.backBtn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.frame {
+  grid-area: frame;
+  // position: relative;
+  // right: 350px;
+  padding: 0.5rem 2rem;
+  // width: 100%;
+  transition: all;
+}
+
+.classTeam,
+.createTeam {
+  display: flex;
+  position: relative;
+  top: -3px;
+}
+
+.createButton {
+  position: absolute;
+  top: 19.2rem;
+  // right: 91rem;
+  height: 33px;
+  width: 10rem;
+  left: 5.5rem;
+}
+
+/*
+
+
+
+
+
+
+
+*/
+
 .prevCont {
   position: absolute;
   bottom: 0;
@@ -262,3 +360,7 @@
     border: none;
   }
 }
+
+// .leftRail {
+//   background: linear-gradient(to right, transparent, #aaa);
+// }

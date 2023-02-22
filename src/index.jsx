@@ -7,6 +7,7 @@ import store from "./reducers"
 import { Provider } from "react-redux"
 import { useQueryClient, QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
+import { FluentProvider, teamsLightTheme } from "@fluentui/react-components"
 
 // Sentry.init({
 //   dsn: "https://6c16d34365334e0fbee992044f9d223b@o575799.ingest.sentry.io/6251530",
@@ -32,8 +33,9 @@ root.render(
   >
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <FluentProvider theme={teamsLightTheme}>
+          <App />
+        </FluentProvider>
       </QueryClientProvider>
     </Provider>
   </Suspense>
